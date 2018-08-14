@@ -1,10 +1,12 @@
+var startButton = document.getElementById('start-button');
+var stopButton = document.getElementById('stop-button');
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
 var cvheight = canvas.height;
 var score = 0;
+var lives = 10;
 
 window.onload = function() {
-	var startButton = document.getElementById('start-button');
 	startButton.onclick = function() {
 		startButton.classList.toggle('pressed');
 		startGame();
@@ -12,56 +14,35 @@ window.onload = function() {
 };
 
 function startGame() {
-	function Astro(x, y, width, height, angle) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.angle = angle;
-		this.centerX = this.x + this.width / 3;
-		this.centerY = this.y + this.height / 2;
-	}
-
-	Astro.prototype.draw = function() {
-		ctx.save();
-		ctx.translate(this.x, this.y);
-		ctx.rotate(this.angle * 0.5 * Math.PI / 180);
-		ctx.fillStyle = 'black';
-		ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
-
-		// translate to rectangle center
-		// x = x + 0.5 * width
-		// y = y + 0.5 * height
-
-		ctx.restore();
-	};
-
-	var player = new Astro(100, 360, 48, 24, 1);
+	var timeGap = Math.floor(Math.random() * Math.floor(100));
+	var player = new Astro(130, 360, 48, 24, 1, 5);
 
 	var intervalId = setInterval(function() {
 		document.onkeydown = function(e) {
 			switch (e.keyCode) {
 				case 87:
-					player.y -= 5;
+					player.y -= player.speed;
 					player.angle--;
 					setTimeout(function() {
 						for (var i = 0; i > player.angle; i--) {
 							player.angle++;
-							console.log(player.angle);
 						}
 					}, 3000);
 
 					break;
 				case 83:
-					player.y += 5;
+					player.y += player.speed;
 					player.angle++;
 					setTimeout(function() {
 						for (var i = 0; i < player.angle; i++) {
 							player.angle--;
-							console.log(player.angle);
+							//console.log(player.angle);
 						}
 					}, 3000);
 					break;
+			}
+			if (player.y <= 0 || player.y >= cvheight) {
+				player.speed *= -1;
 			}
 		};
 
@@ -69,13 +50,28 @@ function startGame() {
 			ctx.clearRect(0, 0, canvas.width, cvheight);
 			//ctx.globalAlpha = 0.8;
 
-			//ctx.font = '30px sans-serif';
-			//ctx.fillText(score, 50, 50);
+			//obstacle.move();
+			moveObstacles();
+			//obstacle.draw();
+			drawObstacles();
 			player.draw();
+			player.checkCrash();
+			//ctx.fillStyle = 'white';
+			ctx.font = '30px Josefin Sans';
+			ctx.fillText('lives: ' + lives, 50, 50);
 			//	console.log(intervalId);
 			intervalId++;
 		}
 		update();
+
+		if (intervalId % 20 === 0) {
+			addObstacle();
+			//console.log(intervalId);
+		}
+
+		stopButton.onclick = function() {
+			clearInterval(intervalId);
+		};
 	}, 200);
 }
 

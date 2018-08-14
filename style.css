@@ -1,5 +1,10 @@
+html {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
 body {
 	text-align: center;
+	background-color: #006e90;
 }
 
 body h1 {
@@ -9,20 +14,28 @@ body h1 {
 
 body button {
 	font-size: 20px;
-	background-color: black;
 	color: #fff;
 	padding: 10px 20px;
-	border: 0;
+	border: none;
 	box-shadow: 0;
 	border-radius: 5px;
 	margin-bottom: 20px;
 }
+#start-button {
+	background-color: #ea1744;
+}
+#stop-button {
+	background-color: #00465c;
+}
+button span {
+	font-weight: 700;
+}
 body button:hover {
-	background-color: #a2cc3a;
+	background-color: #ce143c;
 }
 .pressed {
-	background-color: #507255;
+	background-color: #00465c;
 }
 canvas {
-	border: 2px solid #a2cc3a;
+	border: 2px solid #ce143c;
 }
