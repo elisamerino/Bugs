@@ -1,4 +1,5 @@
 var obstaclesArray = [];
+var starsArray = [];
 
 function Astro(x, y, width, height, angle, speed) {
 	this.x = x;
@@ -68,28 +69,100 @@ function addObstacle(x, y, width, height, speed) {
 		Math.floor(Math.random() * Math.floor(cvheight)),
 		50,
 		40,
-		2
+		1
 	);
 	obstaclesArray.push(obstacle);
 }
 Astro.prototype.checkCrash = function() {
-	for (i = 0; i < obstaclesArray.length; i++) {
-		var playerBegin = this.x - this.width;
-		var playerEnd = this.x + this.width;
+	var playerLeft = this.x - this.width / 2;
+	var playerRight = this.x + this.width / 2;
+	var top = this.y - this.height / 2;
+	var bottom = this.y + this.height / 2;
 
-		//check the crashes //&& playerBegin < obstaclesArray[i].x
-		if (obstaclesArray[i].x < playerEnd && obstaclesArray[i].x > playerBegin) {
-			//console.log('danger area');
-			var top = this.y - this.height / 2;
-			var bottom = this.y + this.height / 2;
-			var obTop = obstaclesArray[i].y - obstaclesArray[i].height / 2;
-			var obBott = obstaclesArray[i].y + obstaclesArray[i].height / 2;
-			console.log(top + ', ' + bottom + ' obstacle: ' + obTop + ' ' + obBott);
-			//console.log('top ', top, 'bottom ', bottom);
-			if (obstaclesArray[i].y > top && obstaclesArray[i].y < bottom) {
-				console.log('CRASHED into obstacle n ' + i);
+	//CRASHING AGAINST OBSTACLES
+
+	for (i = 0; i < obstaclesArray.length; i++) {
+		if (obstaclesArray[i].x < playerRight && obstaclesArray[i].x > playerLeft) {
+			//var obstacleCenter = obstaclesArray[i].y + obstaclesArray[i].height / 2;
+			var checker;
+			for (var j = 0; j < obstaclesArray[i].height; j++) {
+				if (obstaclesArray[i].y + j > top && obstaclesArray[i].y + j < bottom) {
+					checker = true;
+				}
+			}
+			if (checker === true) {
 				lives--;
+				obstaclesArray.splice(i, 1);
+			}
+		}
+	}
+
+	//CATCHING POINTS
+	for (i = 0; i < starsArray.length; i++) {
+		if (starsArray[i].x < playerRight && starsArray[i].x > playerLeft) {
+			var checker;
+			for (var j = 0; j < starsArray[i].height; j++) {
+				if (starsArray[i].y + j > top && starsArray[i].y + j < bottom) {
+					checker = true;
+				}
+			}
+			if (checker === true) {
+				score++;
+				starsArray.splice(i, 1);
+			}
+			if (score % 2 === 0) {
+				this.width = (this.width * 1.2).toFixed(2);
+				this.height = (this.height * 1.2).toFixed(2);
 			}
 		}
 	}
 };
+
+//adding stars for score
+var starpic = new Image();
+starpic.src = './images/shining.png';
+
+function drawStars() {
+	for (i = 0; i < starsArray.length; i++) {
+		ctx.save();
+		ctx.fillStyle = '#ffbc59';
+		ctx.drawImage(
+			starpic,
+			starsArray[i].x,
+			starsArray[i].y,
+			starsArray[i].width,
+			starsArray[i].height
+		);
+
+		ctx.restore();
+	}
+}
+
+function moveStars() {
+	for (i = 0; i < starsArray.length; i++) {
+		starsArray[i].speed *= 1.1;
+		starsArray[i].x -= starsArray[i].speed.toFixed(2);
+	}
+}
+function addStar(x, y, width, height, speed) {
+	var star = new Obstacle(
+		canvas.width + 50,
+		Math.floor(Math.random() * Math.floor(cvheight)),
+		30,
+		30,
+		1
+	);
+	starsArray.push(star);
+}
+function cleanArray() {
+	for (var i = 0; i < obstaclesArray.length; i++) {
+		if (obstaclesArray[i].x < obstaclesArray[i].width * -1) {
+			obstaclesArray.splice(i, 1);
+		}
+	}
+	for (var i = 0; i < starsArray.length; i++) {
+		if (starsArray[i].x < starsArray[i].width * -1) {
+			starsArray.splice(i, 1);
+		}
+	}
+}
