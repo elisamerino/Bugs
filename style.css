@@ -44,3 +44,6 @@ canvas {
 p {
 	color: #eaebed;
 }
+p span {
+	font-weight: 700;
+}
