@@ -8,8 +8,9 @@ var lives = 5;
 var interval;
 var counter = 0;
 var player;
-var rotationInterval;
+
 var myUpdate;
+var id = 0;
 
 window.onload = function() {
 	startButton.onclick = function() {
@@ -24,11 +25,14 @@ window.onload = function() {
 function startGame() {
 	player = new Astro(200, 360, 45, 19, 1, 5);
 	document.onkeydown = function(e) {
+		e.preventDefault();
 		switch (e.keyCode) {
 			case 87:
+			case 38:
 				movePlayer('up');
 				break;
 			case 83:
+			case 40:
 				movePlayer('down');
 				break;
 		}
@@ -41,11 +45,9 @@ function startGame() {
 	};
 
 	document.onkeyup = function(e) {
-		player.rotates();
-		//player.move = false;
 		console.log(player.move);
 	};
-	interval = setInterval(update, 1000 / 10);
+	interval = setInterval(update, 1000 / 50);
 }
 
 function writescore() {
@@ -59,35 +61,39 @@ function update() {
 
 	ctx.clearRect(0, 0, canvas.width, cvheight);
 	cleanArray();
-	//move
+	//MOVE
 	backgroundImage.move();
-	//ctx.globalAlpha = 0.8;
 
-	moveObstacles();
-	moveStars();
+	player.move();
+	obstaclesArray.move();
+	starsArray.move();
 
-	if (counter % 10 === 0) {
+	if (counter === 25 || counter % 50 === 0) {
 		addObstacle();
 	}
-	if (counter % 25 === 0) {
+	if (counter % 75 === 0) {
 		addObstacle();
 	}
-	if (counter % 30 === 0) {
+	if (counter % 100 === 0) {
 		addStar();
 	}
 
 	if (lives === 0) {
 		stopGame();
-		console.log('you lost');
+
 		ctx.font = '80px Josefin Sans';
 		ctx.fillStyle = 'white';
 		ctx.fillText('YOU LOST', canvas.width / 2, cvheight / 2);
+		console.log('you lost');
 	}
-	//draw
+	//DRAWW
+	//ctx.globalAlpha = 0.2;
 	backgroundImage.draw();
-	drawObstacles();
-	drawStars();
+	bgStars.draw();
+
 	player.draw();
+	obstaclesArray.draw();
+	starsArray.draw();
 	writescore();
 	player.checkCrash();
 	function playSound() {
@@ -100,17 +106,17 @@ function stopGame() {
 }
 
 function movePlayer(direction) {
-	player.move = true;
+	player.moving = true;
 	player.speed++;
 	switch (direction) {
 		case 'up':
 			player.y -= player.speed;
-			player.angle -= 2;
+			player.angle -= 8;
 
 			break;
 		case 'down':
 			player.y += player.speed;
-			player.angle += 2;
+			player.angle += 8;
 
 			break;
 	}
