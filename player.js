@@ -112,20 +112,11 @@ Player.prototype.checkCrash = function() {
 	}
 };
 
-function cleanArray() {
-	for (var i = 0; i < obstaclesArray.length; i++) {
-		if (obstaclesArray[i].x < obstaclesArray[i].width * -1) {
-			obstaclesArray.splice(i, 1);
+Array.prototype.clean = function() {
+	for (var i = 0; i < this.length; i++) {
+		if (this[i].x < this[i].width * -1) {
+			this.splice(i, 1);
+			console.log('i cleaned');
 		}
 	}
-	for (var i = 0; i < starsArray.length; i++) {
-		if (starsArray[i].x < starsArray[i].width * -1) {
-			starsArray.splice(i, 1);
-		}
-	}
-	for (var i = 0; i < leavesArray.length; i++) {
-		if (leavesArray[i].x < leavesArray[i].width * -1) {
-			leavesArray.splice(i, 1);
-		}
-	}
-}
+};

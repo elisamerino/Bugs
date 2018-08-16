@@ -28,9 +28,13 @@ window.onload = function() {
 		cvheight / 2 - 60
 	);
 	setTimeout(function() {
-		ctx.fillText('catch the balls to get points and grow bigger,', canvas.width / 2, cvheight / 2);
-		ctx.fillText('the leaves to shrink, it could be handy', canvas.width / 2, cvheight / 2 + 48);
-		ctx.fillText('and caution with the other beetles!', canvas.width / 2, cvheight / 2 + 96);
+		ctx.fillText('catch the balls to get points and grow bigger', canvas.width / 2, cvheight / 2);
+		ctx.fillText(
+			'and the leaves to shrink, it could be handy.',
+			canvas.width / 2,
+			cvheight / 2 + 48
+		);
+		ctx.fillText('caution with the other beetles!', canvas.width / 2, cvheight / 2 + 96);
 	}, 1000);
 
 	startButton.onclick = function() {
@@ -84,7 +88,9 @@ function update() {
 	counter++;
 
 	ctx.clearRect(0, 0, canvas.width, cvheight);
-	cleanArray();
+	obstaclesArray.clean();
+	starsArray.clean();
+	leavesArray.clean();
 	//MOVE
 	backgroundImage.move();
 
