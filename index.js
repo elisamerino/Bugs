@@ -2,29 +2,44 @@ var startButton = document.getElementById('start-button');
 var stopButton = document.getElementById('stop-button');
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
+var bgStart = new Image();
+bgStart.src = './images/bg3.png';
 var cvheight = canvas.height;
 var score = 0;
 var lives = 5;
 var interval;
 var counter = 0;
 var player;
-
 var myUpdate;
 var id = 0;
 
+var bestScore = 0;
+
 window.onload = function() {
+	ctx.drawImage(bgStart, 0, 0);
 	ctx.textAlign = 'center';
-	ctx.font = '30px Josefin Sans';
+	ctx.font = '48px Josefin Sans';
 
-	ctx.fillText('eat and grow bigger! ', canvas.width / 2, cvheight / 2 - 50);
+	ctx.fillText('eat and grow bigger! ', canvas.width / 2, cvheight / 2 - 100);
 	ctx.font = '18px Josefin Sans';
+	ctx.fillText(
+		'to move up and down press the upper or lower arrow keys or W and S',
+		canvas.width / 2,
+		cvheight / 2 - 60
+	);
+	setTimeout(function() {
+		ctx.fillText('catch the balls to get points and grow bigger,', canvas.width / 2, cvheight / 2);
+		ctx.fillText('the leaves to shrink, it could be handy', canvas.width / 2, cvheight / 2 + 48);
+		ctx.fillText('and caution with the other beetles!', canvas.width / 2, cvheight / 2 + 96);
+	}, 1000);
 
-	ctx.fillText('to move press the upper or lower arrows or W and S', canvas.width / 2, cvheight / 2);
 	startButton.onclick = function() {
-		startButton.classList.toggle('pressed');
+		startButton.classList.add('pressed');
+		startButton.disabled = true;
 		startGame();
 	};
 	stopButton.onclick = function() {
+		startButton.disabled = false;
 		stopGame();
 	};
 };
@@ -32,7 +47,7 @@ window.onload = function() {
 function startGame() {
 	loadSounds();
 	countLifes();
-	player = new Astro(200, 360, 60, 46, 1, 5);
+	player = new Player(200, 360, 60, 46, 1, 5);
 	document.onkeydown = function(e) {
 		e.preventDefault();
 		switch (e.keyCode) {
@@ -76,15 +91,19 @@ function update() {
 	player.move();
 	obstaclesArray.move();
 	starsArray.move();
+	leavesArray.move();
 
-	if (counter === 25 || counter % 50 === 0) {
+	if (counter === 25 || counter % 80 === 0) {
 		addObstacle();
 	}
-	if (counter % 75 === 0) {
+	if (counter % 100 === 0) {
 		addObstacle();
 	}
 	if (counter % 100 === 0) {
 		addStar();
+	}
+	if (counter % 180 === 0) {
+		addLeaf();
 	}
 
 	//DRAWW
@@ -95,6 +114,7 @@ function update() {
 	player.draw();
 	obstaclesArray.draw();
 	starsArray.draw();
+	leavesArray.draw();
 	bgGrass.draw();
 	lifeArray.draw();
 	writescore();
@@ -107,6 +127,18 @@ function update() {
 		ctx.fillStyle = 'black';
 		ctx.textAlign = 'center';
 		ctx.fillText(gameOver, canvas.width / 2, cvheight / 2);
+		//here i try to save the last score!
+
+		//bestScore = JSON.parse(localStorage.getItem('bestScores'));
+		//if (bestScore < score) {
+		//	bestScore = score;}
+
+		//ctx.font = '30px Josefin Sans';
+		//ctx.fillText('best score until now: ' + bestScore, canvas.width / 2, cvheight / 2 + 40);
+		createjs.Sound.play(buzz);
+		//setTimeout(function() {
+
+		//}, 1000);
 	}
 	player.checkCrash();
 }

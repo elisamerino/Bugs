@@ -1,3 +1,4 @@
+var starsArray = [];
 //adding stars for score
 var starpic = new Image();
 starpic.src = './images/food1.png';

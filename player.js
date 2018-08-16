@@ -3,13 +3,15 @@ playerIm.src = './images/player2.png';
 
 var slurp = 'slurp';
 var crash = 'crash';
+var buzz = 'buzz';
 
 function loadSounds() {
 	createjs.Sound.registerSound('assets/slurp.wav', slurp);
 	createjs.Sound.registerSound('assets/squish.wav', crash);
+	createjs.Sound.registerSound('assets/buzz.mp3', buzz);
 }
 
-function Astro(x, y, width, height, angle, speed) {
+function Player(x, y, width, height, angle, speed) {
 	this.x = x;
 	this.y = y;
 	this.width = width;
@@ -21,7 +23,7 @@ function Astro(x, y, width, height, angle, speed) {
 	this.moving = false;
 }
 
-Astro.prototype.draw = function() {
+Player.prototype.draw = function() {
 	ctx.save();
 	ctx.translate(this.x, this.y);
 	ctx.rotate(this.angle * 0.5 * Math.PI / 180);
@@ -32,7 +34,7 @@ Astro.prototype.draw = function() {
 	ctx.restore();
 };
 
-Astro.prototype.move = function() {
+Player.prototype.move = function() {
 	var rotationSpeed = 3;
 	if (Math.abs(this.angle) < rotationSpeed) this.angle = 0;
 	if (this.angle > 0) {
@@ -42,7 +44,7 @@ Astro.prototype.move = function() {
 	}
 };
 
-Astro.prototype.checkCrash = function() {
+Player.prototype.checkCrash = function() {
 	var playerLeft = this.x - this.width / 2;
 	var playerRight = this.x + this.width / 2;
 	var top = this.y - this.height / 2;
@@ -88,6 +90,26 @@ Astro.prototype.checkCrash = function() {
 			}
 		}
 	}
+
+	for (i = 0; i < leavesArray.length; i++) {
+		if (leavesArray[i].x < playerRight && leavesArray[i].x > playerLeft) {
+			var leafCheck;
+			for (var j = 0; j < leavesArray[i].height; j++) {
+				if (leavesArray[i].y + j > top && leavesArray[i].y + j < bottom) {
+					leafCheck = true;
+				}
+			}
+			if (leafCheck === true && this.width > 30) {
+				score += 2;
+				leavesArray.splice(i, 1);
+
+				createjs.Sound.play(slurp);
+				this.width = (this.width * 0.8).toFixed(2);
+				this.height = (this.height * 0.8).toFixed(2);
+				leafCheck = false;
+			}
+		}
+	}
 };
 
 function cleanArray() {
@@ -99,6 +121,11 @@ function cleanArray() {
 	for (var i = 0; i < starsArray.length; i++) {
 		if (starsArray[i].x < starsArray[i].width * -1) {
 			starsArray.splice(i, 1);
+		}
+	}
+	for (var i = 0; i < leavesArray.length; i++) {
+		if (leavesArray[i].x < leavesArray[i].width * -1) {
+			leavesArray.splice(i, 1);
 		}
 	}
 }

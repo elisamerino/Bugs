@@ -21,24 +21,27 @@ body button {
 	border-radius: 5px;
 	margin-bottom: 20px;
 }
-#start-button {
-	background-color: #ea1744;
-}
+
 #stop-button {
 	background-color: #003546;
 }
-button span {
+.button span {
 	font-weight: 700;
 }
-body button:hover {
-	background-color: #ce143c;
+.button:hover {
+	background-color: #991532;
 }
-.pressed {
-	background-color: #ce143c;
+#start-button :pressed {
+	background-color: #991532;
 }
+
+.start-button {
+	background-color: #ea1744;
+}
+
 canvas {
 	background-color: #9dc159;
-	border: 2px solid #ce143c;
+	border: 2px solid #eaebed;
 	margin-bottom: 8px;
 }
 p {

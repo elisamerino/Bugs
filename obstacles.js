@@ -1,5 +1,4 @@
 var obstaclesArray = [];
-var starsArray = [];
 
 var obstacleIm = new Image();
 obstacleIm.src = './images/obstacle.png';
@@ -26,7 +25,7 @@ Array.prototype.draw = function() {
 
 Array.prototype.move = function() {
 	for (i = 0; i < this.length; i++) {
-		this[i].speed += 0.02;
+		this[i].speed += 0.05;
 		this[i].x -= this[i].speed;
 	}
 };
@@ -46,7 +45,7 @@ function addObstacle() {
 			Math.floor(Math.random() * Math.floor(cvheight - 20) + 20),
 			64,
 			50,
-			2
+			1
 		)
 	);
 	id++;
