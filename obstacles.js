@@ -2,7 +2,7 @@ var obstaclesArray = [];
 var starsArray = [];
 
 var obstacleIm = new Image();
-obstacleIm.src = './images/obstacle2.gif';
+obstacleIm.src = './images/obstacle.png';
 
 function Obstacle(id, x, y, width, height, speed) {
 	this.id = id;
@@ -44,9 +44,9 @@ function addObstacle() {
 			id,
 			canvas.width + 50,
 			Math.floor(Math.random() * Math.floor(cvheight - 20) + 20),
-			40,
-			40,
-			0.3
+			64,
+			50,
+			2
 		)
 	);
 	id++;

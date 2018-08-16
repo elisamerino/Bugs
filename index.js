@@ -13,6 +13,13 @@ var myUpdate;
 var id = 0;
 
 window.onload = function() {
+	ctx.textAlign = 'center';
+	ctx.font = '30px Josefin Sans';
+
+	ctx.fillText('eat and grow bigger! ', canvas.width / 2, cvheight / 2 - 50);
+	ctx.font = '18px Josefin Sans';
+
+	ctx.fillText('to move press the upper or lower arrows or W and S', canvas.width / 2, cvheight / 2);
 	startButton.onclick = function() {
 		startButton.classList.toggle('pressed');
 		startGame();
@@ -23,7 +30,9 @@ window.onload = function() {
 };
 
 function startGame() {
-	player = new Astro(200, 360, 45, 19, 1, 5);
+	loadSounds();
+	countLifes();
+	player = new Astro(200, 360, 60, 46, 1, 5);
 	document.onkeydown = function(e) {
 		e.preventDefault();
 		switch (e.keyCode) {
@@ -53,8 +62,8 @@ function startGame() {
 function writescore() {
 	//ctx.fillStyle = 'white';
 	ctx.font = '30px Josefin Sans';
-	ctx.fillText('lives: ' + lives, 50, 50);
-	ctx.fillText('score: ' + score, canvas.width - 150, 50);
+	//ctx.fillText('lives: ' + lives, 50, 50);
+	ctx.fillText('score: ' + score, canvas.width - 120, 50);
 }
 function update() {
 	counter++;
@@ -78,14 +87,6 @@ function update() {
 		addStar();
 	}
 
-	if (lives === 0) {
-		stopGame();
-
-		ctx.font = '80px Josefin Sans';
-		ctx.fillStyle = 'white';
-		ctx.fillText('YOU LOST', canvas.width / 2, cvheight / 2);
-		console.log('you lost');
-	}
 	//DRAWW
 	//ctx.globalAlpha = 0.2;
 	backgroundImage.draw();
@@ -94,11 +95,20 @@ function update() {
 	player.draw();
 	obstaclesArray.draw();
 	starsArray.draw();
+	bgGrass.draw();
+	lifeArray.draw();
 	writescore();
-	player.checkCrash();
-	function playSound() {
-		createjs.Sound.play(powerup);
+	if (lives === 0) {
+		stopGame();
+
+		ctx.font = '80px Josefin Sans';
+		var gameOver = 'game over';
+
+		ctx.fillStyle = 'black';
+		ctx.textAlign = 'center';
+		ctx.fillText(gameOver, canvas.width / 2, cvheight / 2);
 	}
+	player.checkCrash();
 }
 
 function stopGame() {

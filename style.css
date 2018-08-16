@@ -4,7 +4,7 @@ html {
 
 body {
 	text-align: center;
-	background-color: #00465c;
+	background-color: #aecc77;
 }
 
 body h1 {
@@ -37,7 +37,7 @@ body button:hover {
 	background-color: #ce143c;
 }
 canvas {
-	background-color: #006e90;
+	background-color: #9dc159;
 	border: 2px solid #ce143c;
 	margin-bottom: 8px;
 }
@@ -46,4 +46,7 @@ p {
 }
 p span {
 	font-weight: 700;
+}
+footer a {
+	color: #ce143c;
 }

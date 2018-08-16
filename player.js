@@ -1,5 +1,13 @@
 var playerIm = new Image();
-playerIm.src = './images/sternschuppe_3.png';
+playerIm.src = './images/player2.png';
+
+var slurp = 'slurp';
+var crash = 'crash';
+
+function loadSounds() {
+	createjs.Sound.registerSound('assets/slurp.wav', slurp);
+	createjs.Sound.registerSound('assets/squish.wav', crash);
+}
 
 function Astro(x, y, width, height, angle, speed) {
 	this.x = x;
@@ -52,6 +60,8 @@ Astro.prototype.checkCrash = function() {
 			if (checker === true) {
 				lives--;
 				obstaclesArray.splice(i, 1);
+				createjs.Sound.play(crash);
+				lifeArray.splice(lifeArray.length - 1, 1);
 			}
 		}
 	}
@@ -68,7 +78,8 @@ Astro.prototype.checkCrash = function() {
 			if (starCheck === true) {
 				score++;
 				starsArray.splice(i, 1);
-				//SOUND	createjs.Sound.play(powerup);
+
+				createjs.Sound.play(slurp);
 			}
 			if (starCheck === true && score % 2 === 0) {
 				this.width = (this.width * 1.2).toFixed(2);
@@ -91,7 +102,3 @@ function cleanArray() {
 		}
 	}
 }
-
-/*function playSound () {
-	createjs.Sound.play(soundID);
-  }*/

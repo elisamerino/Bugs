@@ -1,6 +1,6 @@
 //adding stars for score
 var starpic = new Image();
-starpic.src = './images/shining.png';
+starpic.src = './images/food1.png';
 
 function Star(id, x, y, width, height, speed) {
 	Obstacle.call(this, id, x, y, width, height, speed);
