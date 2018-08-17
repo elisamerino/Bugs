@@ -1,6 +1,6 @@
 # buggy game!
 
-For this game I deployed <canvas> and Javascript.
+For this game I deployed canvas and Javascript.
 
 The process was challenging and very fun at once. Writing it helped me getting familiar with the constructor functions.
 
