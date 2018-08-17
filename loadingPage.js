@@ -1,5 +1,17 @@
+var bigBug = new Image();
+bigBug.src = './images/bigbug.png';
+var bugWidth = 405;
+var bugHeight = 345;
+
 function gameLoading() {
 	ctx.drawImage(bgStart, 0, 0);
+
+	//drawbug
+	ctx.save();
+	ctx.translate(270, 300);
+	ctx.rotate(-255 * 0.5 * Math.PI / 180);
+	ctx.drawImage(bigBug, bugWidth / -1.5 - 470, bugHeight / -2 + 400, bugWidth, bugHeight);
+	ctx.restore();
 	ctx.textAlign = 'center';
 	ctx.font = '48px Josefin Sans';
 
@@ -13,15 +25,15 @@ function gameLoading() {
 
 	setTimeout(function() {
 		ctx.fillText('catch the balls to get points and grow bigger', canvas.width / 2, cvheight / 2);
-	}, 1500);
+	}, 1200);
 	setTimeout(function() {
 		ctx.fillText(
 			'and the leaves to shrink, it could be handy.',
 			canvas.width / 2,
 			cvheight / 2 + 48
 		);
-	}, 3000);
+	}, 2400);
 	setTimeout(function() {
-		ctx.fillText('caution with the other beetles!', canvas.width / 2, cvheight / 2 + 96);
-	}, 4500);
+		ctx.fillText('caution with the evil beetles!', canvas.width / 2, cvheight / 2 + 96);
+	}, 3600);
 }

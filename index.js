@@ -17,13 +17,24 @@ var bestScore = 0;
 
 window.onload = function() {
 	gameLoading();
+
 	startButton.onclick = function() {
 		startButton.classList.add('pressed');
 		startButton.disabled = true;
 		startGame();
 	};
+
+	document.onkeydown = function(e) {
+		if (e.keyCode === 32) {
+			e.preventDefault();
+			startButton.classList.add('pressed');
+			startButton.disabled = true;
+			startGame();
+		}
+	};
 	stopButton.onclick = function() {
 		startButton.disabled = false;
+
 		stopGame();
 	};
 };
