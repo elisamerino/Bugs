@@ -6,7 +6,7 @@ var bgStart = new Image();
 bgStart.src = './images/bg3.png';
 var cvheight = canvas.height;
 var score = 0;
-var lives = 1;
+var lives = 5;
 var interval;
 var counter = 0;
 var player;
