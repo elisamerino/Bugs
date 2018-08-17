@@ -16,27 +16,7 @@ var id = 0;
 var bestScore = 0;
 
 window.onload = function() {
-	ctx.drawImage(bgStart, 0, 0);
-	ctx.textAlign = 'center';
-	ctx.font = '48px Josefin Sans';
-
-	ctx.fillText('eat and grow bigger! ', canvas.width / 2, cvheight / 2 - 100);
-	ctx.font = '18px Josefin Sans';
-	ctx.fillText(
-		'to move up and down press the upper or lower arrow keys or W and S',
-		canvas.width / 2,
-		cvheight / 2 - 60
-	);
-	setTimeout(function() {
-		ctx.fillText('catch the balls to get points and grow bigger', canvas.width / 2, cvheight / 2);
-		ctx.fillText(
-			'and the leaves to shrink, it could be handy.',
-			canvas.width / 2,
-			cvheight / 2 + 48
-		);
-		ctx.fillText('caution with the other beetles!', canvas.width / 2, cvheight / 2 + 96);
-	}, 1000);
-
+	gameLoading();
 	startButton.onclick = function() {
 		startButton.classList.add('pressed');
 		startButton.disabled = true;
