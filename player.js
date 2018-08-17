@@ -27,7 +27,6 @@ Player.prototype.draw = function() {
 	ctx.save();
 	ctx.translate(this.x, this.y);
 	ctx.rotate(this.angle * 0.5 * Math.PI / 180);
-	//ctx.fillStyle = '#ea1745';
 
 	ctx.drawImage(playerIm, this.width / -2, this.height / -2, this.width, this.height);
 

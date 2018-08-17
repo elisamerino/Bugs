@@ -6,7 +6,7 @@ var bgStart = new Image();
 bgStart.src = './images/bg3.png';
 var cvheight = canvas.height;
 var score = 0;
-var lives = 5;
+var lives = 1;
 var interval;
 var counter = 0;
 var player;
@@ -133,9 +133,14 @@ function update() {
 		//ctx.font = '30px Josefin Sans';
 		//ctx.fillText('best score until now: ' + bestScore, canvas.width / 2, cvheight / 2 + 40);
 		createjs.Sound.play(buzz);
-		//setTimeout(function() {
+		//	setTimeout(function() {
 
 		//}, 1000);
+		document.onkeydown = function(e) {
+			if (e.keyCode === 32) {
+				document.location.reload();
+			}
+		};
 	}
 	player.checkCrash();
 }
