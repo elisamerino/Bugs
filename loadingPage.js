@@ -15,7 +15,7 @@ function gameLoading() {
 	ctx.textAlign = 'center';
 	ctx.font = '80px Josefin Sans';
 
-	ctx.fillText('buggy game!', canvas.width / 2, cvheight / 2 - 80);
+	ctx.fillText('bugs!', canvas.width / 2, cvheight / 2 - 80);
 	ctx.font = '18px Josefin Sans';
 	ctx.fillText(
 		'move up and down with the upper or lower arrow keys or W and S',
