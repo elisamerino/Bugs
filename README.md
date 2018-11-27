@@ -1,6 +1,6 @@
 # buggy game!
 
-For this game I deployed canvas and Javascript. 
+For this game I deployed HTML5 Canvas. 
   
 [play it here!](https://elisavazz.github.io/Bugs/)
   
