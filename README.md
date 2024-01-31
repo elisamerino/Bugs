@@ -12,4 +12,4 @@ I overcame it through nesting for loops and if statements to check first the pos
   ![bug](https://raw.githubusercontent.com/elisavazz/Bugs/master/images/player2.png)
 
 
-design and coding by me [vazz.design](http://vazz.design)
+design and coding by me
